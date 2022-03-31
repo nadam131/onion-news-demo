@@ -7,4 +7,7 @@ module.exports = {
   compiler: {
     styledComponents: true,
   },
+  images: {
+    domains: ['www.datocms-assets.com'],
+  },
 };
