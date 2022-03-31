@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+module.exports = {
+  env: {
+    TOKEN: process.env.TOKEN,
+  },
   reactStrictMode: true,
-}
-
-module.exports = nextConfig
+};
