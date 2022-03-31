@@ -1,7 +1,10 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
+  reactStrictMode: true,
   env: {
     TOKEN: process.env.TOKEN,
   },
-  reactStrictMode: true,
+  compiler: {
+    styledComponents: true,
+  },
 };
