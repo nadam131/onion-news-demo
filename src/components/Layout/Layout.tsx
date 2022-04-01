@@ -26,6 +26,7 @@ const Wrapper = styled.div`
 
 const Main = styled.main`
   flex: 1;
+  padding: 40px 0;
 `;
 
 export default Layout;
