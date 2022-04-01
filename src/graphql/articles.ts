@@ -1,8 +1,9 @@
 import { gql } from '@apollo/client';
 
 export const GQL_QUERY_ARTICLES = gql`
-  query ArticlesQuery {
-    allArticles(orderBy: createdAt_DESC) {
+  query ArticlesQuery($orderBy: [ArticleModelOrderBy]) {
+    articles: allArticles(orderBy: $orderBy) {
+      id
       slug
       title
       createdAt
@@ -10,14 +11,6 @@ export const GQL_QUERY_ARTICLES = gql`
       sourceUrl
       image {
         alt
-        responsiveImage {
-          alt
-          aspectRatio
-          sizes
-          srcSet
-          src
-        }
-        title
         url
       }
     }
