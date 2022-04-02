@@ -1,25 +1,26 @@
-import type { NextPage } from 'next';
 import Head from 'next/head';
 
 import client from 'apollo-client';
 import { GQL_QUERY_ARTICLES } from '@graphql/articles';
 
-import Container from '@components/Container/Container';
 import ListArticles from '@components/List/ListArticles/ListArticles';
+import { ArticleProps } from '@types';
 
-const PageHome: NextPage = ({ articles }: any) => {
+interface PageHomeProps {
+  articles: ArticleProps[];
+}
+
+const PageHome = ({ articles }: PageHomeProps) => {
   return (
-    <div>
+    <>
       <Head>
         <title>Onion News</title>
-        <meta name="description" content="Finest news source." />
+        <meta name="description" content="Finest news source" />
       </Head>
-      <Container>
-        <section>
-          <ListArticles articles={articles} />
-        </section>
-      </Container>
-    </div>
+      <div className="container mx-auto md:w-3/4">
+        <ListArticles articles={articles} />
+      </div>
+    </>
   );
 };
 
@@ -31,7 +32,7 @@ export async function getStaticProps() {
   } = await client.query({
     query: GQL_QUERY_ARTICLES,
     variables: {
-      orderBy: 'createdAt_DESC',
+      orderBy: 'publicationDate_DESC',
     },
   });
 

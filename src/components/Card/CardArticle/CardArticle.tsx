@@ -1,27 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
-
 import NextImage from 'next/image';
-import AspectRatio from '@components/AspectRatio/AspectRatio';
-import Grid from '@components/Grid/Grid';
 import Link from 'next/link';
 import ArticleInfo from '@components/ArticleInfo/ArticleInfo';
-import { device } from '@constants/breakpoints';
-
-interface CardArticleProps {
-  title: string;
-  slug: string;
-  image: {
-    url: string;
-    alt: string;
-  };
-  publisher: {
-    name: string;
-  };
-  publicationDate: string;
-  sourceUrl: string;
-  hosted: boolean;
-}
+import { ArticleProps } from '@types';
 
 const CardArticle = ({
   slug,
@@ -31,16 +12,17 @@ const CardArticle = ({
   publicationDate,
   hosted,
   sourceUrl,
-}: CardArticleProps) => {
+}: ArticleProps) => {
   const href = hosted ? `/${slug}` : sourceUrl;
   const target = hosted ? `_self` : '_blank';
+
   return (
-    <Wrapper>
+    <div className="flex flex-col space-y-5 lg:space-y-0 lg:flex-row lg:space-x-12">
       {image && (
-        <Column className="image">
+        <div className="lg:w-1/3">
           <Link href={href}>
             <a target={target}>
-              <AspectRatio ratio="16/9">
+              <div className="aspect-video relative">
                 <NextImage
                   src={image.url}
                   alt={image.alt}
@@ -48,47 +30,27 @@ const CardArticle = ({
                   objectFit="cover"
                   objectPosition="center"
                 />
-              </AspectRatio>
+              </div>
             </a>
           </Link>
-        </Column>
+        </div>
       )}
-      <Column>
+      <div className="flex-1 space-y-3">
         <Link href={href}>
           <a target={target}>
-            <Title>{title}</Title>
+            <h3
+              className={`${
+                image ? 'text-2xl lg:text-4xl' : 'text-xl lg:text-3xl'
+              } leading-normal font-mono`}
+            >
+              {title}
+            </h3>
           </a>
         </Link>
         <ArticleInfo date={publicationDate} publisher={publisher} />
-      </Column>
-    </Wrapper>
+      </div>
+    </div>
   );
 };
-
-const Wrapper = styled(Grid)`
-  @media ${device.laptop} {
-    grid-column-gap: 40px;
-  }
-`;
-
-const Column = styled.div`
-  grid-column: span 12;
-
-  @media ${device.laptop} {
-    grid-column: span 8;
-    &.image {
-      grid-column: span 4;
-    }
-  }
-`;
-const Title = styled.h2`
-  font-family: monospace;
-  font-size: 24px;
-  margin-bottom: 14px;
-
-  @media ${device.laptop} {
-    font-size: 32px;
-  }
-`;
 
 export default CardArticle;

@@ -20,7 +20,8 @@
       "@graphql/*": ["src/graphql/*"],
       "@utils/*": ["src/utils/*"],
       "@constants/*": ["src/constants/*"],
-      "@styles/*": ["src/styles/*"]
+      "@styles/*": ["src/styles/*"],
+      "@types": ["src/types.ts"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

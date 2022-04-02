@@ -1,38 +1,32 @@
-import { format } from 'date-fns';
 import React from 'react';
-import styled from 'styled-components';
+import { Category, Publisher } from '@types';
+import { format } from 'date-fns';
 
-type ArticleInfoProps = {
-  date: string;
-  publisher?: any;
-  categories?: any;
-};
+interface ArticleInfoProps {
+  date: Date;
+  publisher?: Publisher;
+  categories?: Category[];
+}
 
 const ArticleInfo = ({ date, publisher, categories }: ArticleInfoProps) => {
+  const hasCategories = !!(categories && categories.length);
   return (
-    <div>
-      <Time>{format(new Date(date), 'dd MMMM')}</Time>
-      {publisher && <Name>{publisher.name}</Name>}
-      {categories && (
-        <Categories>
-          {categories.length ? categories.map((c) => c.name) : 'No categories'}
-        </Categories>
+    <div className="space-x-2">
+      {date && (
+        <span className="text-lg">{format(new Date(date), 'dd MMMM')}</span>
+      )}
+      {publisher && (
+        <span className="text-lg text-slate-400 border-l-2 border-slate-400 pl-2 ">
+          {publisher.name}
+        </span>
+      )}
+      {hasCategories && (
+        <span className="text-lg text-slate-400 border-l-2 border-slate-400 pl-2">
+          {categories.map((c) => c.name).join(', ')}
+        </span>
       )}
     </div>
   );
 };
-
-const Name = styled.span`
-  text-decoration: none;
-  font-size: 20px;
-  border-left: 1px solid gray;
-  padding-left: 10px;
-  color: grey;
-  margin-left: 10px;
-`;
-const Categories = styled(Name)``;
-const Time = styled.span`
-  font-size: 20px;
-`;
 
 export default ArticleInfo;

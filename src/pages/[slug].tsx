@@ -1,29 +1,18 @@
 import React from 'react';
+import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import NextImage from 'next/image';
-import styled from 'styled-components';
-import { renderMetaTags } from 'react-datocms';
 
 import client from 'apollo-client';
 import { GQL_QUERY_ARTICLE } from '@graphql/article';
 import { GQL_QUERY_ARTICLES } from '@graphql/articles';
 
-import { isArticleHosted, mapArticleToNextPaths } from '@utils/article';
-import AspectRatio from '@components/AspectRatio/AspectRatio';
-import Grid from '@components/Grid/Grid';
-import Container from '@components/Container/Container';
 import ReactMarkdown from 'react-markdown';
-import ArticleInfo from '@components/ArticleInfo/ArticleInfo';
+import { renderMetaTags } from 'react-datocms';
 
-type PageArticleProps = {
-  title: string;
-  content: string;
-  publicationDate: string;
-  publisher: any;
-  image: any;
-  seo: any;
-  categories: any;
-};
+import ArticleInfo from '@components/ArticleInfo/ArticleInfo';
+import { ArticleProps } from '@types';
+import { isArticleHosted, mapArticleToNextPaths } from '@utils/article';
 
 const PageArticle = ({
   title,
@@ -33,61 +22,43 @@ const PageArticle = ({
   image,
   content,
   seo,
-}: PageArticleProps) => {
+}: ArticleProps) => {
   return (
     <>
       {seo && <Head>{renderMetaTags(seo)}</Head>}
-      <Container>
-        <Grid justify="center" rowGap={40}>
-          <Title>{title}</Title>
+      <div className="container mx-auto md:w-3/4 space-y-6">
+        <section className="space-y-3">
+          <h1 className="font-mono text-3xl sm:text-3xl md:text-4xl lg:text-5xl">
+            {title}
+          </h1>
           <ArticleInfo
             date={publicationDate}
             publisher={publisher}
             categories={categories}
           />
-          {image && (
-            <Image>
-              <AspectRatio ratio="16/9">
-                <NextImage
-                  src={image.url}
-                  alt={image.alt}
-                  layout="fill"
-                  objectFit="cover"
-                  objectPosition="center"
-                />
-              </AspectRatio>
-            </Image>
-          )}
-          <Content>
-            <ReactMarkdown>{content}</ReactMarkdown>
-          </Content>
-        </Grid>
-      </Container>
+        </section>
+        {image && (
+          <section className="lg:w-1/2 aspect-video relative">
+            <NextImage
+              src={image.url}
+              alt={image.alt}
+              layout="fill"
+              objectFit="cover"
+              objectPosition="center"
+            />
+          </section>
+        )}
+        <div className="text-md md:text-xl font-mono mx-auto leading-relaxed space-y-4">
+          <ReactMarkdown>{content}</ReactMarkdown>
+        </div>
+      </div>
     </>
   );
 };
 
-const Title = styled.h1`
-  font-size: 56px;
-  font-family: monospace;
-  text-align: center;
-  margin-bottom: 0;
-`;
-
-const Image = styled.div`
-  width: 600px;
-`;
-
-const Content = styled.div`
-  max-width: 70%;
-  font-family: sans-serif;
-  font-size: 18px;
-  line-height: 1.55;
-`;
-
 export default PageArticle;
 
-export async function getStaticPaths() {
+export const getStaticPaths: GetStaticPaths = async () => {
   const {
     data: { articles },
   } = await client.query({ query: GQL_QUERY_ARTICLES });
@@ -98,9 +69,9 @@ export async function getStaticPaths() {
     paths,
     fallback: true,
   };
-}
+};
 
-export async function getStaticProps({ params }: any) {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
   const {
     data: { article },
   } = await client.query({
@@ -108,7 +79,7 @@ export async function getStaticProps({ params }: any) {
     variables: {
       filter: {
         slug: {
-          eq: params.slug,
+          eq: params?.slug,
         },
       },
     },
@@ -117,4 +88,4 @@ export async function getStaticProps({ params }: any) {
   return {
     props: article,
   };
-}
+};

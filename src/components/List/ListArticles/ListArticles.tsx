@@ -1,38 +1,19 @@
-import CardArticle from '@components/Card/CardArticle/CardArticle';
-import Grid from '@components/Grid/Grid';
-import { device } from '@constants/breakpoints';
-import Link from 'next/link';
 import React from 'react';
-import styled from 'styled-components';
+import CardArticle from '@components/Card/CardArticle/CardArticle';
+import { ArticleProps } from '@types';
 
-type ListArticlesProps = {
-  articles: any;
-};
+interface ListArticlesProps {
+  articles: ArticleProps[];
+}
 
 const ListArticles = ({ articles }: ListArticlesProps) => {
   return (
-    <Wrapper>
-      {articles.map(({ id, ...article }: any) => {
-        return (
-          <Row key={id}>
-            <CardArticle {...article} />
-          </Row>
-        );
-      })}
-    </Wrapper>
+    <div className="space-y-8 lg:space-y-14">
+      {articles.map((article: ArticleProps) => (
+        <CardArticle key={article.id} {...article} />
+      ))}
+    </div>
   );
 };
-
-const Wrapper = styled(Grid)`
-  grid-row-gap: 30px;
-
-  @media ${device.laptop} {
-    grid-row-gap: 60px;
-  }
-`;
-
-const Row = styled.div`
-  grid-column: span 12;
-`;
 
 export default ListArticles;
