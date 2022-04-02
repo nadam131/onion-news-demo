@@ -30,7 +30,7 @@ const PageArticle = ({
   return (
     <>
       {seo && <Head>{renderMetaTags(seo)}</Head>}
-      <div className="container mx-auto md:w-3/4 space-y-6">
+      <div className="container mx-auto md:w-3/4 space-y-8">
         <section className="space-y-3">
           <h1 className="font-mono text-3xl sm:text-3xl md:text-4xl lg:text-5xl">
             {title}
