@@ -1,8 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
-
-import Header from '@components/Header/Header';
-import Footer from '@components/Footer/Footer';
+import Link from 'next/link';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -10,23 +7,18 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <Wrapper>
-      <Header />
-      <Main>{children}</Main>
-      <Footer />
-    </Wrapper>
+    <div className="flex flex-col h-screen justify-between">
+      <header className="border-b-2 border-black">
+        <div className="container py-10 mx-auto">
+          <Link href="/">ONION NEWS</Link>
+        </div>
+      </header>
+      <main className="mb-auto">{children}</main>
+      <footer className="border-t-2 border-black">
+        <div className="container py-10 mx-auto">created by nadam131</div>
+      </footer>
+    </div>
   );
 };
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-`;
-
-const Main = styled.main`
-  flex: 1;
-  padding: 40px 0;
-`;
 
 export default Layout;
