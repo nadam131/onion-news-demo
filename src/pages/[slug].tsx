@@ -92,6 +92,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   });
 
   return {
-    props: formatArticle(article),
+    props: await formatArticle(article),
   };
 };
