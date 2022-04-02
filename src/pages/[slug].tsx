@@ -12,7 +12,11 @@ import { renderMetaTags } from 'react-datocms';
 
 import ArticleInfo from '@components/ArticleInfo/ArticleInfo';
 import { ArticleProps } from '@types';
-import { isArticleHosted, mapArticleToNextPaths } from '@utils/article';
+import {
+  formatArticle,
+  isArticleHosted,
+  mapArticleToNextPaths,
+} from '@utils/article';
 
 const PageArticle = ({
   title,
@@ -42,7 +46,9 @@ const PageArticle = ({
             <NextImage
               src={image.url}
               alt={image.alt}
+              blurDataURL={image.blurDataURL}
               layout="fill"
+              placeholder="blur"
               objectFit="cover"
               objectPosition="center"
             />
@@ -86,6 +92,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   });
 
   return {
-    props: article,
+    props: formatArticle(article),
   };
 };

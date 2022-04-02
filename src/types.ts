@@ -10,6 +10,7 @@ interface MetaTag {
 interface Image {
   alt: string;
   url: string;
+  blurDataURL: string;
 }
 
 export interface Publisher {

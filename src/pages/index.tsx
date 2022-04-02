@@ -5,6 +5,7 @@ import { GQL_QUERY_ARTICLES } from '@graphql/articles';
 
 import ListArticles from '@components/ListArticles/ListArticles';
 import { ArticleProps } from '@types';
+import { formatArticle } from '@utils/article';
 
 interface PageHomeProps {
   articles: ArticleProps[];
@@ -27,14 +28,14 @@ const PageHome = ({ articles }: PageHomeProps) => {
 export default PageHome;
 
 export async function getStaticProps() {
-  const {
-    data: { articles },
-  } = await client.query({
+  const { data } = await client.query({
     query: GQL_QUERY_ARTICLES,
     variables: {
       orderBy: 'publicationDate_DESC',
     },
   });
+
+  const articles = await Promise.all(data.articles.map(formatArticle));
 
   return {
     props: {

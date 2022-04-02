@@ -16,6 +16,7 @@ const CardArticle = ({
   const href = hosted ? `/${slug}` : sourceUrl;
   const target = hosted ? `_self` : '_blank';
 
+  console.log(image, 'image');
   return (
     <div className="flex flex-col space-y-5 lg:space-y-0 lg:flex-row lg:space-x-12">
       {image && (
@@ -26,7 +27,9 @@ const CardArticle = ({
                 <NextImage
                   src={image.url}
                   alt={image.alt}
+                  blurDataURL={image.blurDataURL}
                   layout="fill"
+                  placeholder="blur"
                   objectFit="cover"
                   objectPosition="center"
                 />
