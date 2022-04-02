@@ -3,7 +3,7 @@ import Head from 'next/head';
 import client from 'apollo-client';
 import { GQL_QUERY_ARTICLES } from '@graphql/articles';
 
-import ListArticles from '@components/List/ListArticles/ListArticles';
+import ListArticles from '@components/ListArticles/ListArticles';
 import { ArticleProps } from '@types';
 
 interface PageHomeProps {

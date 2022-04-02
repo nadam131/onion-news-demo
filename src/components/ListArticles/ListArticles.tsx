@@ -1,5 +1,5 @@
 import React from 'react';
-import CardArticle from '@components/Card/CardArticle/CardArticle';
+import CardArticle from '@components/CardArticle/CardArticle';
 import { ArticleProps } from '@types';
 
 interface ListArticlesProps {
