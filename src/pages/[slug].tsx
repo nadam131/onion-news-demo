@@ -30,9 +30,9 @@ const PageArticle = ({
   return (
     <>
       {seo && <Head>{renderMetaTags(seo)}</Head>}
-      <div className="container mx-auto md:w-3/4 space-y-8">
+      <div className="container md:w-3/4 mx-auto space-y-8">
         <section className="space-y-3">
-          <h1 className="font-mono text-3xl sm:text-3xl md:text-4xl lg:text-5xl">
+          <h1 className="font-mono leading-normal sm:leading-normal md:leading-normal xl:leading-normal text-2xl sm:text-3xl md:text-4xl xl:text-5xl">
             {title}
           </h1>
           <ArticleInfo
@@ -42,7 +42,7 @@ const PageArticle = ({
           />
         </section>
         {image && (
-          <section className="lg:w-1/2 aspect-video relative">
+          <section className="aspect-video max-w-screen-sm relative">
             <NextImage
               src={image.url}
               alt={image.alt}
@@ -54,7 +54,7 @@ const PageArticle = ({
             />
           </section>
         )}
-        <div className="text-md md:text-xl font-mono mx-auto leading-relaxed space-y-4">
+        <div className="text-md md:text-xl font-mono max-w-prose leading-relaxed md:leading-relaxed space-y-4">
           <ReactMarkdown>{content}</ReactMarkdown>
         </div>
       </div>

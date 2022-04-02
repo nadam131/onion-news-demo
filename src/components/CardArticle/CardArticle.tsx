@@ -43,7 +43,7 @@ const CardArticle = ({
             <h3
               className={`${
                 image ? 'text-2xl lg:text-4xl' : 'text-xl lg:text-3xl'
-              } leading-normal font-mono`}
+              } leading-normal lg:leading-normal font-mono`}
             >
               {title}
             </h3>
