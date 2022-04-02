@@ -8,6 +8,8 @@ Simple demo with Next.js/DatoCMS
 
 #### How to run
 
+> **_NOTE:_** Before running commands, create ```.env.local``` file with ```TOKEN``` for DatoCMS.
+
 ```
 $ yarn install
 $ yarn build
