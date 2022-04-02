@@ -4,9 +4,6 @@ module.exports = {
   env: {
     TOKEN: process.env.TOKEN,
   },
-  compiler: {
-    styledComponents: true,
-  },
   images: {
     domains: ['www.datocms-assets.com'],
   },
