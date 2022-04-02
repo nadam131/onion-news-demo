@@ -6,9 +6,12 @@ export const GQL_QUERY_ARTICLES = gql`
       id
       slug
       title
-      createdAt
+      publicationDate
       hosted
       sourceUrl
+      publisher {
+        name
+      }
       image {
         alt
         url

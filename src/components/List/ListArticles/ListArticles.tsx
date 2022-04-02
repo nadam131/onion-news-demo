@@ -1,5 +1,6 @@
 import CardArticle from '@components/Card/CardArticle/CardArticle';
 import Grid from '@components/Grid/Grid';
+import { device } from '@constants/breakpoints';
 import Link from 'next/link';
 import React from 'react';
 import styled from 'styled-components';
@@ -10,29 +11,25 @@ type ListArticlesProps = {
 
 const ListArticles = ({ articles }: ListArticlesProps) => {
   return (
-    <Grid rowGap={40}>
-      {articles.map(
-        ({ id, title, slug, image, publisher, hosted, sourceUrl }: any) => {
-          const href = hosted ? `/${slug}` : sourceUrl;
-          const target = hosted ? '_self' : '_blank';
-          return (
-            <Row key={id}>
-              <Link href={href}>
-                <a target={target}>
-                  <CardArticle
-                    title={title}
-                    image={image}
-                    publisher={publisher}
-                  />
-                </a>
-              </Link>
-            </Row>
-          );
-        }
-      )}
-    </Grid>
+    <Wrapper>
+      {articles.map(({ id, ...article }: any) => {
+        return (
+          <Row key={id}>
+            <CardArticle {...article} />
+          </Row>
+        );
+      })}
+    </Wrapper>
   );
 };
+
+const Wrapper = styled(Grid)`
+  grid-row-gap: 30px;
+
+  @media ${device.laptop} {
+    grid-row-gap: 60px;
+  }
+`;
 
 const Row = styled.div`
   grid-column: span 12;

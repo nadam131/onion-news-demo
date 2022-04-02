@@ -1,33 +1,43 @@
-import type { NextPage } from "next";
-import Head from "next/head";
+import type { NextPage } from 'next';
+import Head from 'next/head';
 
-const Home: NextPage = () => {
+import client from 'apollo-client';
+import { GQL_QUERY_ARTICLES } from '@graphql/articles';
+
+import Container from '@components/Container/Container';
+import ListArticles from '@components/List/ListArticles/ListArticles';
+
+const PageHome: NextPage = ({ articles }: any) => {
   return (
     <div>
       <Head>
         <title>Onion News</title>
         <meta name="description" content="Finest news source." />
-        <link
-          rel="apple-touch-icon"
-          sizes="180x180"
-          href="/apple-touch-icon.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/favicon-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/favicon-16x16.png"
-        />
-        <link rel="manifest" href="/site.webmanifest" />
       </Head>
+      <Container>
+        <section>
+          <ListArticles articles={articles} />
+        </section>
+      </Container>
     </div>
   );
 };
 
-export default Home;
+export default PageHome;
+
+export async function getStaticProps() {
+  const {
+    data: { articles },
+  } = await client.query({
+    query: GQL_QUERY_ARTICLES,
+    variables: {
+      orderBy: 'createdAt_DESC',
+    },
+  });
+
+  return {
+    props: {
+      articles,
+    },
+  };
+}
