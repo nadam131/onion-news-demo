@@ -93,5 +93,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   return {
     props: await formatArticle(article),
+    revalidate: 60 * 5,
   };
 };
