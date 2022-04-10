@@ -19,7 +19,7 @@ const PageHome = ({ articles }: PageHomeProps) => {
         <meta name="description" content="Finest news source" />
       </Head>
       <div className="container mx-auto md:w-3/4">
-        <ListArticles articles={articles} />
+        {/* <ListArticles articles={articles} /> */}
       </div>
     </>
   );
@@ -28,14 +28,13 @@ const PageHome = ({ articles }: PageHomeProps) => {
 export default PageHome;
 
 export async function getStaticProps() {
-  const { data } = await client.query({
-    query: GQL_QUERY_ARTICLES,
-    variables: {
-      orderBy: 'publicationDate_DESC',
+  const {
+    data: {
+      articles: { nodes: articles },
     },
+  } = await client.query({
+    query: GQL_QUERY_ARTICLES,
   });
-
-  const articles = await Promise.all(data.articles.map(formatArticle));
 
   return {
     props: {

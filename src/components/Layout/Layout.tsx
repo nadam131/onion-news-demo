@@ -1,31 +1,32 @@
+import Nav, { NavItem } from '@components/Nav/Nav';
 import React from 'react';
-import Link from 'next/link';
 
 interface LayoutProps {
   children: React.ReactNode;
+  navMain: NavItem[];
 }
 
-const Layout = ({ children }: LayoutProps) => {
+const Layout = ({ children, navMain }: LayoutProps) => {
   return (
-    <div className="flex flex-col h-screen justify-between">
-      <header className="border-b-2 border-gray-300 py-3">
-        <div className="container mx-auto md:w-3/4">
-          <Link href="/">
-            <a className="text-4xl md:text-5xl text-gray-700">ONION NEWS</a>
-          </Link>
-        </div>
-      </header>
-      <main className="mb-auto py-10 pb-14 lg:py-14">{children}</main>
-      <footer className="border-t-2 border-black">
-        <div className="container py-3 mx-auto text-center">
-          created by{' '}
-          <Link href="https://www.instagram.com/nadam131/">
-            <a target="_blank" rel="noreferrer">
-              nadam131
-            </a>
-          </Link>
-        </div>
-      </footer>
+    <div className="flex h-screen justify-between">
+      <aside className="w-15 h-screen flex justify-center pointer-events-none border-r-4">
+        <span className="aside rotate-180 text-6xl opacity-[.15] whitespace-nowrap">
+          WOTAFAK @ WOTAFAK $ WOTAFAK % WOTAFAK ! WOTAFAK @ WOTAFAK $
+        </span>
+      </aside>
+      <div className="flex-1 p-20 pr-0">
+        <header className="w-200 relative">
+          <span className="text-6xl opacity-[.15] absolute right-0 left-0 overflow-hidden">
+            wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+          </span>
+          <div className="flex w-full justify-center items-center absolute z-10 top-0 h-[60px]">
+            <div className="p-10 bg-white">
+              <Nav list={navMain} />
+            </div>
+          </div>
+        </header>
+        <main className="mb-auto pb-14 lg:py-14">{children}</main>
+      </div>
     </div>
   );
 };

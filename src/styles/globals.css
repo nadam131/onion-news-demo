@@ -13,6 +13,11 @@
   a:hover {
     text-decoration: underline;
   }
+
+  .aside {
+    -webkit-writing-mode: vertical-rl;
+    -ms-writing-mode: vertical-rl;
+  }
 }
 @tailwind components;
 @tailwind utilities;
